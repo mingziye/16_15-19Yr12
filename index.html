@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Year 12 people 15-19</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+    <script src='./data.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top: 150px; height: 450px; left:70px; width:40%;}
+        
+    </style>
+</head>
+<body>
+<br><h1> people completed year 12 in 15-19 </h1>
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFkZWxlaW5lam9oYW5zb24iLCJhIjoiY2lzczduYzJ4MDZrODJucGh0Mm1xbmVxNCJ9.i7q4iT8FFgh_y5v4we5UhQ';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/light-v9', // stylesheet location
+    center: [151.004105, -33.813002], // starting position [lng, lat]
+    pitch: 45,
+    bearing: -17.6,
+    zoom: 9 // starting zoom
+});
+    map.on('load', function() {
+    map.addLayer({
+        "id": "data1",
+        "type": "fill-extrusion",
+        "source": {
+        	'type': 'geojson',
+        	'data': data
+        },
+           'paint': {
+                'fill-extrusion-color' : {
+                    'property': 'p_12',
+                    "stops":[
+                    	[0, 'lightcyan'],
+                    	[108, 'turquoise'],
+                        [452,'teal'],
+                        [1800,'steelblue'],
+                        [4000,'royalblue']
+                    ]
+                    
+                },
+                'fill-extrusion-height' : {
+                    'property': 'p_15-19',
+                    "stops":[
+                    	[7, 700],
+                    	[30, 3000],
+                      [121, 12100],
+                      [450, 45000],
+                      [700, 70000],
+                    ]
+                },
+                 'fill-extrusion-opacity': 0.9
+            }
+    });
+});
+</script>
+
+</body>
+</html>
